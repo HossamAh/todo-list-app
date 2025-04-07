@@ -1,16 +1,33 @@
 import { useDispatch } from "react-redux";
 import { deleteTodo,markTodoAsCompleted } from "../Thunks/todosThunk";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck , faTrash } from '@fortawesome/free-solid-svg-icons'
+
 export default function TodoListItem({todo}){
     const dispatch = useDispatch();
 
     return (
-    <div className="flex flex-col items-center justify-center bg-gray-600 rounded-xl p-2 min-w-[200px] my-3">
-        <h3>{todo.text}</h3>
-        {todo.isCompleted &&  <p>Completed</p> }
+    <li className="bg-white rounded shadow-md p-4 mb-4 w-full flex justify-between items-center">
+        <h3 className="text-gray-600">{todo.text}</h3>
+        <div className="flex gap-1">
+
+        {todo.isCompleted? <p className="bg-green-100 text-green-800 text-xs font-bold rounded px-2 py-1 flex items-center justify-center" >Completed</p> : <p className="flex justify-center items-center bg-red-100 text-red-800 text-xs font-bold rounded px-2 py-1"> Incompleted</p>}
         {todo.isCompleted ? 
-        <button className="p-2 bg-red-600 rounded-2xl" onClick={()=>dispatch(deleteTodo(todo._id))} >Delete </button>:
-        <button className="p-2 bg-blue-600 rounded-2xl " onClick={()=>dispatch(markTodoAsCompleted(todo._id))} >Mark as completed </button>
+        <button className="cursor-pointer  bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>dispatch(deleteTodo(todo._id))} >
+            <FontAwesomeIcon icon={faTrash}/>
+        </button>
+        :
+        <>
+        <button className="cursor-pointer  bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={()=>dispatch(markTodoAsCompleted(todo._id))} >
+            <FontAwesomeIcon icon={faCheck}/>    
+        </button>
+        <button className="cursor-pointer  bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>dispatch(deleteTodo(todo._id))} >
+            <FontAwesomeIcon icon={faTrash}/>
+        </button>
+        </>
         }
-    </div>
+        </div>
+
+    </li>
  );   
 }

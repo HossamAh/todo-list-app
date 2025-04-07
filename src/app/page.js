@@ -20,7 +20,8 @@ export default function Home() {
   
   return (
     <Provider store={store}>
-      <div className="bg-white p-4 text-black space-y-4 h-screen">
+      <div className="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
+        <h1 className="text-2xl font-bold mb-4">Todo List App</h1>
         <TodoList/>
       </div>
     </Provider>

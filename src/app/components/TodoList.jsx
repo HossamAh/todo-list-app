@@ -17,26 +17,30 @@ export default function TodoList({}) {
   }, []);
 
   return (
-    <div className="h-full flex flex-col items-center justify-start gap-6 ">
-      <h1>My Todos</h1>
+    <div className="h-full flex flex-col items-start justify-start gap-6 ">
+      
       <NewTodoForm />
-      { loadingState.completed && loadingState?.successful &&
-        <div className="flex justify-between w-2/3 mx-auto">
-          <div className="flex flex-col items-center justify-start">
-            <h3>Completed:</h3>
-            {completedTodos.map((todo) => (
-              <TodoListItem key={todo._id} todo={todo} />
-            ))}
+      { loadingState.completed && loadingState?.successful ?
+        <div className="flex flex-col -mx-4 w-full">
+          <div className="w-full  p-4">
+            <h3 className="text-lg font-bold mb-2">Completed:</h3>
+            <ul className="list-none p-4 w-full">
+              {completedTodos.map((todo) => (
+                <TodoListItem key={todo._id} todo={todo} />
+              ))}
+            </ul>
           </div>
-          <div className="flex flex-col items-center justify-start">
-            <h3>Incompleted:</h3>
-            {incompletedTodos.map((todo) => (
-              <TodoListItem key={todo._id} todo={todo} />
-            ))}
+          
+          <div className="w-full  p-4">
+            <h3 className="text-lg font-bold mb-2">Incompleted:</h3>
+            <ul className="list-none p-4 w-full">
+              {incompletedTodos.map((todo) => (
+                <TodoListItem key={todo._id} todo={todo} />
+              ))}
+            </ul>
           </div>
         </div>
-      }
-      {!loadingState.completed && <p>Loading ...</p>
+      :<p>Loading ...</p>
       }
     </div>
   );
