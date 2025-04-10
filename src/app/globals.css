@@ -52,6 +52,7 @@
         }
         .form-input {
             padding: 10px;
+            width:100%;
             border: none;
             border-radius: 10px;
             background-color: var(--background-color);
@@ -68,18 +69,16 @@
             opacity: 0.5;
         }
         .form-label {
-            position: absolute;
-            top: 0;
-            left: 0;
+            
             padding: 10px;
             font-size: 16px;
             font-weight: 500;
             color: var(--text-color);
             transition: transform 0.3s;
         }
-        .form-input:focus + .form-label {
+        /* .form-input:focus + .form-label {
             transform: translateY(-35px);
-        }
+        } */
         .form-button {
             padding: 10px 20px;
             border: none;

@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import nextConfig from '../../../../next.config.mjs';
 import { useRouter } from 'next/navigation'
+import { useState } from 'react';
 export default function RegisterFrom(){
     const initialState = {
         'name':"",
@@ -16,7 +17,7 @@ export default function RegisterFrom(){
         email: Yup.string().email().required('Required'),
         password: Yup.string().required('Password is required').min(8)
     });
-
+    const [errorState,setErrorState] = useState();
     const router = useRouter(); 
     const handleSubmit = async (values) => {
         console.log("on login handle submit");
@@ -35,6 +36,7 @@ export default function RegisterFrom(){
                 router.push('/')
             }
         } catch (error) {
+            setErrorState("incorrect email or password.");
             console.error(error);
         }
     };
@@ -54,15 +56,15 @@ export default function RegisterFrom(){
                     {({})=>(
                         <Form className="registration-form">                
                         <div className="form-input-group mb-4">
+                            <label className="form-label">Email</label>
                             <Field type="email" name="email" className="form-input" placeholder="Email"></Field>
                             {/* <input type="text" className="form-input" placeholder="Name" /> */}
-                            <label className="form-label">Email</label>
                             <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                         </div>                            
                         <div className="form-input-group mb-4">
+                            <label className="form-label">Password</label>
                             <Field type="password" name="password" className="form-input" placeholder="Password"></Field>
                             {/* <input type="text" className="form-input" placeholder="Name" /> */}
-                            <label className="form-label">Password</label>
                             <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
                         </div>   
                         <button type='submit' className="form-button w-full mb-2">Login</button>
@@ -77,6 +79,13 @@ export default function RegisterFrom(){
                 </div>
             </div>
         </div>
+        {errorState && 
+        (
+            <div className="text-center mb-4">
+                {errorState}
+            </div>
+        )
+        }
     </div>
     </>
     );

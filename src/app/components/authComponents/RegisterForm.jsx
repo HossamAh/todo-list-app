@@ -3,7 +3,8 @@ import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import nextConfig from '../../../../next.config.mjs';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import {useState} from 'react';
 export default function RegisterFrom(){
     const initialState = {
         'name':"",
@@ -12,7 +13,7 @@ export default function RegisterFrom(){
         "confirmPassword":"",
         "terms":false,
     };
-    
+    const [errorState,setErrorState] = useState();
     const validationSchema = Yup.object({
         name: Yup.string().required('Required').min(3),
         email: Yup.string().email().required('Required'),
@@ -38,6 +39,7 @@ export default function RegisterFrom(){
             // navigate('/login');
             router.push('/login');
         } catch (error) {
+            setErrorState("error in registering ,please try again.");
             console.error(error);
         }
     };
@@ -57,33 +59,35 @@ export default function RegisterFrom(){
                     {({})=>(
                         <Form className="registration-form">
                         <div className="form-input-group mb-4">
+                            <label className="form-label">Name</label>
                             <Field type="text" name="name" className="form-input" placeholder="Name"></Field>
                             {/* <input type="text" className="form-input" placeholder="Name" /> */}
-                            <label className="form-label">Name</label>
                             <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
                         </div>                            
                         <div className="form-input-group mb-4">
+                            <label className="form-label">Email</label>
                             <Field type="email" name="email" className="form-input" placeholder="Email"></Field>
                             {/* <input type="text" className="form-input" placeholder="Name" /> */}
-                            <label className="form-label">Email</label>
                             <ErrorMessage name="email" component="div" className="text-red-500 text-sm" />
                         </div>                            
                         <div className="form-input-group mb-4">
+                            <label className="form-label">Password</label>
                             <Field type="password" name="password" className="form-input" placeholder="Password"></Field>
                             {/* <input type="text" className="form-input" placeholder="Name" /> */}
-                            <label className="form-label">Password</label>
                             <ErrorMessage name="password" component="div" className="text-red-500 text-sm" />
                         </div>                            
                         <div className="form-input-group mb-4">
+                            <label className="form-label">Confirm Password</label>
                             <Field type="password" name="confirmPassword" className="form-input" placeholder="Confirm Password"></Field>
                             {/* <input type="text" className="form-input" placeholder="Name" /> */}
-                            <label className="form-label">Confirm Password</label>
                             <ErrorMessage name="confirmPassword" component="div" className="text-red-500 text-sm" />
                         </div>    
                         <div className="terms-checkbox mb-4">
-                        <Field type="checkbox" id="terms" value="false"></Field>
+                        <Field type="checkbox" name="terms" id="terms" className="form-checkbox" />
+                        <label htmlFor="terms" >
+                            I agree to the terms and conditions
+                        </label>
                         {/* <input type="checkbox" id="terms" /> */}
-                        <label htmlFor="terms">I agree to the terms and conditions</label>
                         <ErrorMessage name="terms" component="div" className="text-red-500 text-sm" />
                         </div>   
                         <button type="submit" className="form-button w-full mb-2">Register</button>
@@ -98,6 +102,13 @@ export default function RegisterFrom(){
                 </div>
             </div>
         </div>
+        {errorState && 
+        (
+            <div className="text-center mb-4">
+                {errorState}
+            </div>
+        )
+        }
     </div>
     </>
     );
