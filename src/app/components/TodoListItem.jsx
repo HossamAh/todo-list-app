@@ -7,7 +7,7 @@ export default function TodoListItem({todo}){
     const dispatch = useDispatch();
 
     return (
-    <li className="bg-white rounded shadow-md p-4 mb-4 w-full flex justify-between items-center">
+    <li className="bg-white rounded shadow-md p-4 mb-4 w-full flex flex-col md:flex-row gap-2 justify-between items-center">
         <h3 className="text-gray-600">{todo.text}</h3>
         <div className="flex gap-1">
 

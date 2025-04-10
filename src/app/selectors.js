@@ -1,7 +1,8 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 export const getTodos= state=>state.todos.values;
-export const getTodosLoading= state=>state.loading.values;
+// export const getTodosLoading= state=>state.loading.values;
+export const getTodosLoading= state=>state.todos.loadingStatus;
 // no memoization
 // export const getCompletedTodos = state=>{
 //     return getTodos(state).filter(t=>t.isCompleted)

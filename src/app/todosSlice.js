@@ -1,4 +1,5 @@
 import { loadingCompleted } from "./loadingSlice";
+import { loadTodos } from "./Thunks/todosThunk";
 
 const { createSlice } = require("@reduxjs/toolkit");
 
@@ -6,6 +7,7 @@ export const todosSlice = createSlice({
     name:"todos",
     initialState:{
         values:[]
+        ,loadingStatus:''
     },
     reducers:{
         // createTodo: (state,action)=>{
@@ -30,8 +32,18 @@ export const todosSlice = createSlice({
         }
     },
     extraReducers:(builder)=>{
-        builder.addCase(loadingCompleted,(state,action)=>{
+        // builder.addCase(loadingCompleted,(state,action)=>{
+        //     state.values = action.payload;
+        // }),
+        builder.addCase(loadTodos.pending,(state,action)=>{
+            state.loadingStatus = "loading";
+        }), 
+        builder.addCase(loadTodos.fulfilled,(state,action)=>{
+            state.loadingStatus = "completed";
             state.values = action.payload;
+        }), 
+        builder.addCase(loadTodos.rejected,(state,action)=>{
+            state.loadingStatus = "failed";
         })
     }
 });
