@@ -67,7 +67,32 @@ export const markTodoAsCompleted = (id) => async (dispatch,getState) =>{
 }
 
 
-export const loadTodos = createAsyncThunk("todos/loadTodos",async ()=>{
-    let response = await axios.get(nextConfig.env.API_URL+"/api/todos",{withCredentials:true});
+export const loadTodos = createAsyncThunk("todos/loadTodos",async (type="all")=>{
+    console.log("inside load todos "+type)
+    let route = "/api/todos"
+    let response;
+    
+    switch(type){
+        case "all":
+            break;
+        case "today":
+            route = "/api/todos/today";
+            break;
+        case "week":
+            route = "/api/todos/week";
+            break;
+        case "overdue":
+            route = "/api/todos/overdue";
+            break;
+        default:
+            break;
+    }
+    try{
+        response = await axios.get(nextConfig.env.API_URL+route,{withCredentials:true});
+    }
+    catch(err){
+        console.log(err);
+        throw err;
+    }
     return response.data;
 })
