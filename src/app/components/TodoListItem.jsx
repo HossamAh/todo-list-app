@@ -13,7 +13,7 @@ export default function TodoListItem({todo}){
         <h3 className="text-gray-600">{todo.text}</h3>
         <div className="flex gap-2">
         {!todo.isCompleted && <p className="bg-green-100 text-green-800 text-xs font-bold rounded px-2 py-1 flex items-center justify-center" >{dayjs(todo.deadline).fromNow()}</p> }
-        <div className="flex gap-1">
+        <div className="flex md:flex-row flex-col gap-1">
 
         {todo.isCompleted? <p className="bg-green-100 text-green-800 text-xs font-bold rounded px-2 py-1 flex items-center justify-center" >Completed</p> : <p className="flex justify-center items-center bg-red-100 text-red-800 text-xs font-bold rounded px-2 py-1"> Incompleted</p>}
         
